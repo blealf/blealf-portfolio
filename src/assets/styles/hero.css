@@ -1,0 +1,21 @@
+.blinker {
+  opacity: 0;
+  animation: blinker 600ms linear infinite;
+  color: green;
+  font-size: 1.5em;
+  font-weight: bold;
+  transform: translate(-25%, -15%);
+  display: block;
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
