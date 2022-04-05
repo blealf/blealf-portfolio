@@ -1,14 +1,14 @@
 .blinker {
   opacity: 0;
-  animation: blinker 600ms linear infinite;
+  display: block;
   color: green;
   font-size: 1.5em;
   font-weight: bold;
   transform: translate(-25%, -15%);
-  display: block;
+  animation: blink 600ms linear infinite;
 }
 
-@keyframes blinker {
+@keyframes blink {
   0% {
     opacity: 1;
   }
