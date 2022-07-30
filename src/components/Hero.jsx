@@ -2,6 +2,15 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import '../assets/styles/hero.css'
 
+const blinker = () => {
+  return (
+    `@keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }`
+  )
+}
 const Header = styled.div`
   padding: 15px 20px;
   background: linear-gradient(to bottom, #071F3D, #2B3F59);
@@ -13,17 +22,19 @@ const Pointer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
+  width: 20px;
+  height: 20px;
+  z-index: 99;
   border-radius: 50%;
+  pointer-events: none;
   border: 2px solid green;
   background: transparent;
-  animation:  zoom-n-shine 1s linear infinite;
+  transform: translate(-50%, -50%);
+  animation:  zoom-n-shine 1.5s linear infinite;
 
   @keyframes zoom-n-shine {
     0% { border-color: green; transform: scale(1); }
-    50% { border-color: teal; transform: scale(1.5); }
+    50% { border-color: teal; transform: scale(3); }
     100% { border-color: green; transform: scale(1); }
   }
 `
@@ -33,6 +44,14 @@ const HeroWrapper = styled.div`
   background: #333;
   max-width: 500px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(500px);
+
+  &:hover ~ ${Pointer} {
+    ${blinker}
+    width: 0;
+    border-radius: 0;
+    height: 30px;
+    animation: blink 1.5s linear infinite;
   }
 `
 const Greeting = styled.div`
@@ -62,9 +81,10 @@ const Hero = () => {
   useEffect(() => {
     write()
     document.addEventListener("pointermove", e => {
-      pointer.current.style.top = e.pageY - 30 + 'px'
-      pointer.current.style.left = e.pageX - 30 +  'px'
+      pointer.current.style.top = e.pageY - 10 + 'px'
+      pointer.current.style.left = e.pageX - 10 + 'px'
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   const Typewriter = ({ words, printer, setBlinker, blinkerTime }) => {
